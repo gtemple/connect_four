@@ -1,4 +1,32 @@
-require_relative 'board'
+require_relative 'game_rules'
+
+module Misc
+  def print_format(ar)
+    p ar.map { |s| s + " |"}.unshift("|").join(" ")
+  end
+end
+
+class Board
+  include Misc
+
+  def board_size
+    board = ['1 ', '2 ', '3 ', '4 ', '5 ', '6 ', '7 ']
+    42.times do
+      board.unshift('⚪')
+    end
+    board
+  end
+    
+  def print_board
+    first = 0
+    last = 6
+    7.times do
+      print_format(@board[first..last])
+      first += 7
+      last += 7
+    end
+  end
+end
 
 class GameRules < Board
 
@@ -110,11 +138,9 @@ class GameRules < Board
     zontal = zontal_win(c)
     diagonal_lr = diagonal_win_lr(c)
     diagonal_rl = diagonal_win_rl(c)
-    puts vert
-    puts zontal
-    puts diagonal_lr
-    puts diagonal_rl
+    if vert == true|| zontal == true|| diagonal_lr == true|| diagonal_rl == true
+      return true
+    end
   end
-
 end
 
